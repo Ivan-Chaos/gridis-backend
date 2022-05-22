@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GridisBackend.Models;
+using GridisBackend.DTOs.Address;
+using AutoMapper;
 
 namespace GridisBackend.Controllers
 {
@@ -14,52 +16,58 @@ namespace GridisBackend.Controllers
     public class AddressesController : ControllerBase
     {
         private readonly PowerManagementOLTPContext _context;
+        private IMapper _mapper;
 
-        public AddressesController(PowerManagementOLTPContext context)
+        public AddressesController(PowerManagementOLTPContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Addresses
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Address>>> GetAddresses()
+        public async Task<ActionResult<IEnumerable<Address_GET_DTO>>> GetAddresses()
         {
-          if (_context.Addresses == null)
-          {
-              return NotFound();
-          }
-            return await _context.Addresses.ToListAsync();
+            if (_context.Addresses == null)
+            {
+                return NotFound();
+            }
+            var data = _mapper.Map<List<Address_GET_DTO>>(_context.Addresses.Include(a => a.Street).ThenInclude(s=>s.District).ThenInclude(d=>d.City).ToList());
+
+            return Ok(data);
         }
 
         // GET: api/Addresses/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Address>> GetAddress(int id)
+        public async Task<ActionResult<Address_GET_DTO>> GetAddress(int id)
         {
-          if (_context.Addresses == null)
-          {
-              return NotFound();
-          }
-            var address = await _context.Addresses.FindAsync(id);
+            if (_context.Addresses == null)
+            {
+                return NotFound();
+            }
+            var address = await _context.Addresses.Include(a => a.Street).ThenInclude(s => s.District).ThenInclude(d => d.City).FirstOrDefaultAsync(i => i.Id == id);
 
             if (address == null)
             {
                 return NotFound();
             }
 
-            return address;
+            return _mapper.Map<Address, Address_GET_DTO>(address);
         }
 
         // PUT: api/Addresses/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAddress(int id, Address address)
+        public async Task<IActionResult> PutAddress(int id, Address_POST_DTO addressDTO)
         {
-            if (id != address.Id)
+            var address = await _context.Addresses.SingleOrDefaultAsync(t => t.Id == id);
+
+            if (address == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(address).State = EntityState.Modified;
+            _mapper.Map<Address_POST_DTO, Address>(addressDTO, address);
 
             try
             {
@@ -83,16 +91,18 @@ namespace GridisBackend.Controllers
         // POST: api/Addresses
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Address>> PostAddress(Address address)
+        public async Task<ActionResult<Address>> PostAddress(Address_POST_DTO addressDTO)
         {
-          if (_context.Addresses == null)
-          {
-              return Problem("Entity set 'PowerManagementOLTPContext.Addresses'  is null.");
-          }
+            if (_context.Addresses == null)
+            {
+                return Problem("Entity set 'PowerManagementOLTPContext.Addresses'  is null.");
+            }
+
+            var address = _mapper.Map<Address>(addressDTO);
             _context.Addresses.Add(address);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAddress", new { id = address.Id }, address);
+            return Ok(address);
         }
 
         // DELETE: api/Addresses/5

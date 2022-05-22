@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GridisBackend.DTOs;
+using GridisBackend.DTOs.Address;
 using GridisBackend.DTOs.District;
 using GridisBackend.DTOs.Street;
 using GridisBackend.Models;
@@ -18,7 +19,8 @@ namespace GridisBackend
             CreateMap<Street, Street_GET_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<Street, Street_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
 
-
+            CreateMap<Address, Address_GET_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
+            CreateMap<Address, Address_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
         }
     }
 }
