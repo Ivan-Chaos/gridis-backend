@@ -2,6 +2,7 @@
 using GridisBackend.DTOs;
 using GridisBackend.DTOs.Address;
 using GridisBackend.DTOs.District;
+using GridisBackend.DTOs.Manufacturer;
 using GridisBackend.DTOs.Street;
 using GridisBackend.Models;
 
@@ -21,6 +22,8 @@ namespace GridisBackend
 
             CreateMap<Address, Address_GET_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<Address, Address_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
+
+            CreateMap<Manufacturer, Manufacturer_GET_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
         }
     }
 }
