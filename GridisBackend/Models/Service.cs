@@ -9,11 +9,10 @@ namespace GridisBackend.Models
         {
             ServiceRequests = new HashSet<ServiceRequest>();
         }
-        
+
         public string ServiceName { get; set; } = null!;
         public string Description { get; set; } = null!;
         public decimal Cost { get; set; }
-
 
         public virtual ICollection<ServiceRequest> ServiceRequests { get; set; }
     }

@@ -8,6 +8,7 @@ using GridisBackend.DTOs.InstalledMeter;
 using GridisBackend.DTOs.Manufacturer;
 using GridisBackend.DTOs.MeterModel;
 using GridisBackend.DTOs.OperatorReadings;
+using GridisBackend.DTOs.Payment;
 using GridisBackend.DTOs.Person;
 using GridisBackend.DTOs.Readings;
 using GridisBackend.DTOs.Residence;
@@ -58,6 +59,8 @@ namespace GridisBackend
 
             CreateMap<OperatorReading, OperatorReading_GET_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<OperatorReading, OperatorReading_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
+            
+            CreateMap<Payment, Payment_GET_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
 
         }
     }

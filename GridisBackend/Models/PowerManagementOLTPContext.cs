@@ -14,10 +14,10 @@ namespace GridisBackend.Models
         public PowerManagementOLTPContext(DbContextOptions<PowerManagementOLTPContext> options)
             : base(options)
         {
-
         }
 
         public virtual DbSet<Address> Addresses { get; set; } = null!;
+        public virtual DbSet<Admin> Admins { get; set; } = null!;
         public virtual DbSet<Bill> Bills { get; set; } = null!;
         public virtual DbSet<CallOperator> CallOperators { get; set; } = null!;
         public virtual DbSet<City> Cities { get; set; } = null!;
@@ -41,6 +41,7 @@ namespace GridisBackend.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=ELTON;Database=PowerManagementOLTP;Trusted_Connection=True;");
             }
         }
@@ -84,6 +85,29 @@ namespace GridisBackend.Models
                     .HasForeignKey(d => d.StreetId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Address__street___0C85DE4D");
+            });
+
+            modelBuilder.Entity<Admin>(entity =>
+            {
+                entity.ToTable("Admin");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Password)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PersonId).HasColumnName("PersonID");
+
+                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Username)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Bill>(entity =>
@@ -300,8 +324,7 @@ namespace GridisBackend.Models
 
             modelBuilder.Entity<OperatorReading>(entity =>
             {
-                entity.Property(e => e.Id)
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.CreateDate)
                     .HasColumnType("datetime")
@@ -331,14 +354,11 @@ namespace GridisBackend.Models
                 entity.ToTable("Payment");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
                     .HasColumnName("ID");
 
                 entity.Property(e => e.CreateDate)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.InstalledMeterId).HasColumnName("InstalledMeterID");
 
                 entity.Property(e => e.PaidSum).HasColumnType("money");
 
@@ -346,13 +366,15 @@ namespace GridisBackend.Models
 
                 entity.Property(e => e.ReceiptNumber).HasColumnType("money");
 
+                entity.Property(e => e.ResidenceId).HasColumnName("ResidenceID");
+
                 entity.Property(e => e.UpdateDate).HasColumnType("datetime");
 
-                entity.HasOne(d => d.InstalledMeter)
+                entity.HasOne(d => d.Residence)
                     .WithMany(p => p.Payments)
-                    .HasForeignKey(d => d.InstalledMeterId)
+                    .HasForeignKey(d => d.ResidenceId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Payment_InstalledMeter");
+                    .HasConstraintName("FK_Payment_Residence");
             });
 
             modelBuilder.Entity<Person>(entity =>
@@ -441,8 +463,8 @@ namespace GridisBackend.Models
                 entity.Property(e => e.AddressId).HasColumnName("AddressID");
 
                 entity.Property(e => e.CreateDate)
-                    .IsRowVersion()
-                    .IsConcurrencyToken();
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.InstalledMeterId).HasColumnName("InstalledMeterID");
 

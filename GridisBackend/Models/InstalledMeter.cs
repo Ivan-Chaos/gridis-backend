@@ -7,7 +7,6 @@ namespace GridisBackend.Models
     {
         public InstalledMeter()
         {
-            Payments = new HashSet<Payment>();
             Readings = new HashSet<Reading>();
             Residences = new HashSet<Residence>();
         }
@@ -17,7 +16,6 @@ namespace GridisBackend.Models
         public int ModelId { get; set; }
 
         public virtual MeterModel Model { get; set; } = null!;
-        public virtual ICollection<Payment> Payments { get; set; }
         public virtual ICollection<Reading> Readings { get; set; }
         public virtual ICollection<Residence> Residences { get; set; }
     }

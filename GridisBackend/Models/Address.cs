@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GridisBackend.Models
 {
-    public partial class Address: EntityBase
+    public partial class Address : EntityBase
     {
         public Address()
         {

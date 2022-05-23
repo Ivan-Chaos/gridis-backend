@@ -8,6 +8,7 @@ namespace GridisBackend.Models
         public Residence()
         {
             Bills = new HashSet<Bill>();
+            Payments = new HashSet<Payment>();
             ServiceRequests = new HashSet<ServiceRequest>();
         }
 
@@ -19,11 +20,11 @@ namespace GridisBackend.Models
         public int? FloorNumber { get; set; }
         public decimal Size { get; set; }
 
-
         public virtual Address Address { get; set; } = null!;
         public virtual InstalledMeter InstalledMeter { get; set; } = null!;
         public virtual Person Resident { get; set; } = null!;
         public virtual ICollection<Bill> Bills { get; set; }
+        public virtual ICollection<Payment> Payments { get; set; }
         public virtual ICollection<ServiceRequest> ServiceRequests { get; set; }
     }
 }
