@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using GridisBackend.DTOs;
 using GridisBackend.DTOs.Address;
+using GridisBackend.DTOs.Bill;
 using GridisBackend.DTOs.District;
 using GridisBackend.DTOs.InstalledMeter;
 using GridisBackend.DTOs.Manufacturer;
 using GridisBackend.DTOs.MeterModel;
 using GridisBackend.DTOs.Person;
 using GridisBackend.DTOs.Readings;
+using GridisBackend.DTOs.Residence;
 using GridisBackend.DTOs.Street;
 using GridisBackend.DTOs.Tarrif;
 using GridisBackend.Models;
@@ -42,6 +44,12 @@ namespace GridisBackend
             CreateMap<Reading, Reading_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
 
             CreateMap<Tarrif, Tarrif_GET_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
+
+            CreateMap<Bill, Bill_GET_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
+            CreateMap<Bill, Bill_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
+
+            CreateMap<Residence, Residence_GET_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
+            CreateMap<Residence, Residence_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
 
         }
     }
