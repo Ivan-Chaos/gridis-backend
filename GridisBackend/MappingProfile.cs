@@ -12,6 +12,7 @@ using GridisBackend.DTOs.Payment;
 using GridisBackend.DTOs.Person;
 using GridisBackend.DTOs.Readings;
 using GridisBackend.DTOs.Residence;
+using GridisBackend.DTOs.Service;
 using GridisBackend.DTOs.Street;
 using GridisBackend.DTOs.Tarrif;
 using GridisBackend.Models;
@@ -62,6 +63,9 @@ namespace GridisBackend
             
             CreateMap<Payment, Payment_GET_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
 
+            CreateMap<Service, Service_GET_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
+
+            
         }
     }
 }
