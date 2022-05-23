@@ -2,6 +2,7 @@
 using GridisBackend.DTOs;
 using GridisBackend.DTOs.Address;
 using GridisBackend.DTOs.District;
+using GridisBackend.DTOs.InstalledMeter;
 using GridisBackend.DTOs.Manufacturer;
 using GridisBackend.DTOs.MeterModel;
 using GridisBackend.DTOs.Street;
@@ -28,6 +29,9 @@ namespace GridisBackend
 
             CreateMap<MeterModel, MeterModel_GET_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<MeterModel, MeterModel_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
+
+            CreateMap<InstalledMeter, InstalledMeter_GET_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
+            CreateMap<InstalledMeter, InstalledMeter_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
 
         }
     }
