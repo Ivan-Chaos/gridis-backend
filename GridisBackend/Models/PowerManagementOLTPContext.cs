@@ -301,7 +301,6 @@ namespace GridisBackend.Models
             modelBuilder.Entity<OperatorReading>(entity =>
             {
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
                     .HasColumnName("ID");
 
                 entity.Property(e => e.CreateDate)
