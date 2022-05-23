@@ -2,6 +2,7 @@
 using GridisBackend.DTOs;
 using GridisBackend.DTOs.Address;
 using GridisBackend.DTOs.Bill;
+using GridisBackend.DTOs.CallOperator;
 using GridisBackend.DTOs.District;
 using GridisBackend.DTOs.InstalledMeter;
 using GridisBackend.DTOs.Manufacturer;
@@ -50,6 +51,9 @@ namespace GridisBackend
 
             CreateMap<Residence, Residence_GET_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<Residence, Residence_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
+
+            CreateMap<CallOperator, CallOperator_GET_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
+            CreateMap<CallOperator, CallOperator_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
 
         }
     }
