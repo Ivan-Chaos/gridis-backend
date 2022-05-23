@@ -11,9 +11,11 @@ using GridisBackend.DTOs.MeterModel;
 using GridisBackend.DTOs.OperatorReadings;
 using GridisBackend.DTOs.Payment;
 using GridisBackend.DTOs.Person;
+using GridisBackend.DTOs.ProvidedService;
 using GridisBackend.DTOs.Readings;
 using GridisBackend.DTOs.Residence;
 using GridisBackend.DTOs.Service;
+using GridisBackend.DTOs.ServiceRequest;
 using GridisBackend.DTOs.Street;
 using GridisBackend.DTOs.Tarrif;
 using GridisBackend.Models;
@@ -68,6 +70,12 @@ namespace GridisBackend
 
             CreateMap<Engineer, Engineer_GET_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<Engineer, Engineer_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
+
+            CreateMap<ServiceRequest, ServiceRequest_GET_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
+            CreateMap<ServiceRequest, ServiceRequest_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
+
+            CreateMap<ProvidedService, ProvidedService_GET_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
+            CreateMap<ProvidedService, ProvidedService_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
 
         }
     }

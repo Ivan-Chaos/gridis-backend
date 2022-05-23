@@ -32,7 +32,7 @@ namespace GridisBackend.Controllers
             {
                 return NotFound();
             }
-            var data = _mapper.Map<List<Engineer_GET_DTO>>(_context.Engineers.Include(e => e.Person).Include(e=>e.District).ThenInclude(d=>d.City).ToList());
+            var data = _mapper.Map<List<Engineer_GET_DTO>>(_context.Engineers.Include(e => e.Person).Include(e=>e.District).ThenInclude(d=>d.City).Include(e=>e.ProvidedServices).ToList());
 
             return Ok(data);
         }
@@ -45,7 +45,23 @@ namespace GridisBackend.Controllers
             {
                 return NotFound();
             }
-            var engineer = await _context.Engineers.Include(e => e.Person).Include(e => e.District).ThenInclude(d => d.City).FirstOrDefaultAsync(i => i.Id == id);
+            var engineer = await _context.Engineers.Include(e => e.Person)
+                .Include(e => e.District)
+                .ThenInclude(d => d.City)
+                .Include(e => e.ProvidedServices)
+                .ThenInclude(ps => ps.ServiceRequest)
+                .ThenInclude(sr => sr.Residence)
+                .ThenInclude(r => r.Address)
+                .ThenInclude(r => r.Street)
+                .ThenInclude(s => s.District)
+                .ThenInclude(d => d.City)
+                .Include(e => e.ProvidedServices)
+                .ThenInclude(ps => ps.ServiceRequest)
+                .ThenInclude(sr => sr.Service)
+                .Include(e => e.ProvidedServices)
+                .ThenInclude(ps => ps.ServiceRequest)
+                .ThenInclude(sr => sr.MeterModel)
+                .FirstOrDefaultAsync(i => i.Id == id);
 
             if (engineer == null)
             {
