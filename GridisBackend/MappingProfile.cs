@@ -6,6 +6,7 @@ using GridisBackend.DTOs.InstalledMeter;
 using GridisBackend.DTOs.Manufacturer;
 using GridisBackend.DTOs.MeterModel;
 using GridisBackend.DTOs.Person;
+using GridisBackend.DTOs.Readings;
 using GridisBackend.DTOs.Street;
 using GridisBackend.Models;
 
@@ -36,6 +37,8 @@ namespace GridisBackend
 
             CreateMap<Person, Person_GET_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
 
+            CreateMap<Reading, Reading_GET_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
+            CreateMap<Reading, Reading_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
 
         }
     }
