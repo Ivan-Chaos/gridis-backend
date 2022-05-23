@@ -8,6 +8,7 @@ using GridisBackend.DTOs.MeterModel;
 using GridisBackend.DTOs.Person;
 using GridisBackend.DTOs.Readings;
 using GridisBackend.DTOs.Street;
+using GridisBackend.DTOs.Tarrif;
 using GridisBackend.Models;
 
 namespace GridisBackend
@@ -39,6 +40,8 @@ namespace GridisBackend
 
             CreateMap<Reading, Reading_GET_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<Reading, Reading_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
+
+            CreateMap<Tarrif, Tarrif_GET_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
 
         }
     }
