@@ -62,6 +62,7 @@ namespace GridisBackend.Models
             return base.SaveChangesAsync(cancellationToken);
         }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Address>(entity =>
@@ -108,6 +109,12 @@ namespace GridisBackend.Models
                 entity.Property(e => e.Username)
                     .HasMaxLength(20)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.Person)
+                    .WithMany(p => p.Admins)
+                    .HasForeignKey(d => d.PersonId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Admin_Person");
             });
 
             modelBuilder.Entity<Bill>(entity =>
@@ -353,8 +360,7 @@ namespace GridisBackend.Models
             {
                 entity.ToTable("Payment");
 
-                entity.Property(e => e.Id)
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.CreateDate)
                     .HasColumnType("datetime")

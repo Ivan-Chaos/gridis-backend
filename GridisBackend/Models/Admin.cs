@@ -8,5 +8,7 @@ namespace GridisBackend.Models
         public string Username { get; set; } = null!;
         public string Password { get; set; } = null!;
         public int PersonId { get; set; }
+
+        public virtual Person Person { get; set; } = null!;
     }
 }

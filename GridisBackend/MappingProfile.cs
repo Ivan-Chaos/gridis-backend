@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GridisBackend.DTOs;
 using GridisBackend.DTOs.Address;
+using GridisBackend.DTOs.Admin;
 using GridisBackend.DTOs.Bill;
 using GridisBackend.DTOs.CallOperator;
 using GridisBackend.DTOs.District;
@@ -76,6 +77,9 @@ namespace GridisBackend
 
             CreateMap<ProvidedService, ProvidedService_GET_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<ProvidedService, ProvidedService_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
+
+            CreateMap<Admin, Admin_GET_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
+            CreateMap<Admin, Admin_POST_DTO>().ReverseMap().ForMember(x => x.Id, opt => opt.Ignore());
 
         }
     }

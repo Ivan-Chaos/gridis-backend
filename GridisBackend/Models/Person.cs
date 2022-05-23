@@ -7,6 +7,7 @@ namespace GridisBackend.Models
     {
         public Person()
         {
+            Admins = new HashSet<Admin>();
             CallOperators = new HashSet<CallOperator>();
             Engineers = new HashSet<Engineer>();
             Residences = new HashSet<Residence>();
@@ -17,6 +18,7 @@ namespace GridisBackend.Models
         public string Email { get; set; } = null!;
         public string PhoneNumber { get; set; } = null!;
 
+        public virtual ICollection<Admin> Admins { get; set; }
         public virtual ICollection<CallOperator> CallOperators { get; set; }
         public virtual ICollection<Engineer> Engineers { get; set; }
         public virtual ICollection<Residence> Residences { get; set; }
